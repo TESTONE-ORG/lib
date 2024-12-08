@@ -1,12 +1,20 @@
-// vars/examplePipeline.groovy
-
-def call(String name = 'World') {
+def call(Map config = [:]) {
     pipeline {
         agent any
         stages {
-            stage('Greeting') {
+            stage('Build') {
                 steps {
-                    echo "Hello, ${name}!"
+                    echo "Building project ${config.projectName}"
+                }
+            }
+            stage('Test') {
+                steps {
+                    echo "Running tests for ${config.projectName}"
+                }
+            }
+            stage('Deploy') {
+                steps {
+                    echo "Deploying to ${config.environment}"
                 }
             }
         }
